@@ -11,7 +11,6 @@
     tools:context="cs4330.apps.mobile.timer.MainActivity">
 
     <TextView
-        android:text="Time goes here "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -26,15 +25,14 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="93dp"
-        android:id="@+id/StopTimer"
-        android:text="Stop timer" />
+        android:id="@+id/StartTimer" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/StartTimer"
-        android:layout_alignBaseline="@+id/StopTimer"
-        android:layout_alignBottom="@+id/StopTimer"
+        android:id="@+id/StopTimer"
+        android:layout_alignBaseline="@+id/StartTimer"
+        android:layout_alignBottom="@+id/StartTimer"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="35dp" />
 
