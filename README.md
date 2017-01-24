@@ -1,4 +1,5 @@
 CS 4330/5390: Mobile Application Development
+======
 
 Group Work: GUI Programming
 (File $Date: 2017/01/19 19:23:07 $)
@@ -31,9 +32,9 @@ Do it incrementally.
 Evaluation
 
 (a) Was your group able to write code for?
-    P1:   Yes / No
-    P2:   Yes / No
-    P3:   Yes / No
+    P1:   Yes 
+    P2:   Yes 
+    P3:   Yes 
 
 (2) If not, state briefly the challenges or problems that your group
     encountered along with your plan to address them.
