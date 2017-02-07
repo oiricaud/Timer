@@ -1,62 +1,68 @@
 package cs4330.apps.mobile.timer;
 
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
+import android.widget.TextView;
+
 
 /** An Android Application that allows users to use a timer.
  * @author Oscar I. Ricaud
  * @version 1.0
  */
 public class MainActivity extends AppCompatActivity {
-    long startTime;
-    long countUp;
-    long stopTime;
+    private TextView timerDisplay;
+    private Button startButton;
+    private Button stopButton;
+    TimerModel timer = new TimerModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpButtons();
+        timerDisplay = (TextView) findViewById(R.id.textView);
+        startButton = (Button) findViewById(R.id.startButton);
+        stopButton = (Button) findViewById(R.id.stopButton);
+        stopButton.setEnabled(false);
+        displayTime();
     }
-    private void setUpButtons() {
-        new java.util.Date();
-        Button startButton = (Button) findViewById(R.id.StartTimer);
-        Button stopButton = (Button) findViewById(R.id.StopTimer);
-        startButton.setText("Start");
-        stopButton.setText("Stop");
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Chronometer stopWatch = (Chronometer) findViewById(R.id.chrono);
-                startTime = SystemClock.elapsedRealtime();
-                stopWatch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                    @Override
-                    public void onChronometerTick(Chronometer arg0) {
-                        countUp = (SystemClock.elapsedRealtime() - arg0.getBase()) / 1000;
-                        String asText = (countUp / 60) + ":" + (countUp % 60);
-                    }
-                });
-                stopWatch.start();
+
+    /**
+     * Called when the start button is clicked.
+     */
+    public void startClicked(View view) {
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
+        timer.start();
+        new Thread(() -> {
+            while (timer.isRunning()) {
+                MainActivity.this.runOnUiThread(MainActivity.this::displayTime);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ignored) {
+                }
             }
-        });
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Chronometer stopWatch = (Chronometer) findViewById(R.id.chrono);
-                startTime = SystemClock.elapsedRealtime();
-                stopWatch.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                    @Override
-                    public void onChronometerTick(Chronometer arg0) {
-                        countUp = (SystemClock.elapsedRealtime() - arg0.getBase()) / 1000;
-                        String asText = (countUp / 60) + ":" + (countUp % 60);
-                    }
-                });
-                stopWatch.stop();
-            }
-        });
+        }).start();
+    }
+
+    /**
+     * Called when the stop button is clicked.
+     */
+    public void stopClicked(View view) {
+        startButton.setEnabled(true);
+        stopButton.setEnabled(false);
+        timer.stop();
+    }
+
+    private void displayTime() {
+        long sec = timer.elapsedTime() / 1000;
+        long min = sec / 60;
+        long hour = min / 60;
+        sec = sec % 60;
+        min = min % 60;
+        String time = String.format("%d:%02d:%02d", hour, min, sec);
+        timerDisplay.setText(time);
     }
 }
