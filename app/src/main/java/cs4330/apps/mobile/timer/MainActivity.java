@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 /** An Android Application that allows users to use a timer.
  * @author Oscar I. Ricaud
+ * CS 4330 Homework 1 - Note Applets have been outdated... used Android Studio to develop the app.
  * @version 1.0
  */
 public class MainActivity extends AppCompatActivity {
