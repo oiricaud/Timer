@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        timerDisplay = (TextView) findViewById(R.id.textView);
-        startButton = (Button) findViewById(R.id.startButton);
-        stopButton = (Button) findViewById(R.id.stopButton);
+        timerDisplay = (TextView) findViewById(R.id.timerPlacement);
+        startButton = (Button) findViewById(R.id.StartTimer);
+        stopButton = (Button) findViewById(R.id.StopTimer);
         stopButton.setEnabled(false);
         displayTime();
     }

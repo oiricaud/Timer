@@ -1,24 +1,51 @@
 package cs4330.apps.mobile.timer;
 
-/**
- * Created by oscarricaud on 1/24/17.
- */
+/** A simple model of a timer. */
 public class TimerModel {
 
-    private String StartTimer;
-    private int StopTimer;
-    private int ElpsedTime;
-    private boolean isStarted;
+    /** Is this timer running? */
+    private boolean isRunning;
 
+    /** The start time of this timer in milliseconds. */
+    private long startTime;
 
-    public String getStartTimer() {
-        return StartTimer;
+    /** Create a new timer. Initially it isn't running. */
+    public TimerModel() {
+        isRunning = false;
+        startTime = 0;
     }
 
-    public void setStartTimer() {
+    /**
+     * Start this timer. If invoked when a timer is already running,
+     * this method will restart it.
+     */
+    public void start() {
+        startTime = System.currentTimeMillis();
+        isRunning = true;
+    }
 
-        /*
-        *
-        * */
+    /** Stop this timer. */
+    public void stop() {
+        isRunning = false;
+    }
+
+    /**
+     * Is this timer running?
+     *
+     * @return true if this timer is running; false otherwise.
+     */
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    /**
+     * Return the elapsed time since this timer has started; return 0 if this
+     * timer is not running. The elapsed time is given in milliseconds.
+     *
+     * @return elapsed time in milliseconds; 0 if this timer is not running.
+     */
+    public long elapsedTime() {
+        return isRunning ? System.currentTimeMillis() - startTime : 0;
     }
 }
+
